@@ -50,57 +50,40 @@
         <div class="portfolio-grid">
             
             <!-- ========== EDITABLE PROJECT ITEMS ========== -->
-            <!-- TO ADD NEW PROJECT: Copy entire <div class="project-item"> block -->
             
-            <!-- Image Project Example -->
-            <div class="project-item" data-type="image" data-src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=800&h=1000&fit=crop">
+            <!-- ===== IMAGE PROJECT - LOCAL FILE ===== -->
+            <!-- Place your image in: images/project1.jpg -->
+            <div class="project-item" data-type="image" data-src="sidhakura.png">
                 <div class="project-thumbnail">
-                    <img src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=800&h=1000&fit=crop" alt="Geometric Visions" loading="lazy">
+                    <img src="sidhakura.png" alt="Geometric Visions" loading="eager">
                 </div>
                 <div class="project-info">
-                    <h3 class="project-title">Geometric Visions</h3>
-                    <span class="project-category">Brand Identity</span>
+                    <h3 class="project-title">Sidha Kura</h3>
+                    <span class="project-category">Campgain Posters</span>
                 </div>
             </div>
             
-            <!-- Video Project Example (YouTube) -->
-            <div class="project-item" data-type="video" data-video-id="dQw4w9WgXcQ" data-platform="youtube">
-                <div class="project-thumbnail">
-                    <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&h=1000&fit=crop" alt="Motion Reel" loading="lazy">
-                    <div class="play-icon"></div>
-                </div>
+            <!-- ===== VIDEO PROJECT - YOUTUBE ===== -->
+            <!-- data-video-id: Everything after "watch?v=" in YouTube URL -->
+            <!-- Example: https://www.youtube.com/watch?v=dQw4w9WgXcQ → use "dQw4w9WgXcQ" -->
+           <div class="project-item" data-type="video" data-video-id="dj0q5WJi9Ng" data-platform="youtube">
+    <div class="project-thumbnail">
+        <img src="images/video-cover1.jpg" alt="Motion Reel" loading="lazy">
+        <div class="play-icon"></div>
+    </div>
+
                 <div class="project-info">
                     <h3 class="project-title">Motion Reel '24</h3>
                     <span class="project-category">Video Production</span>
                 </div>
             </div>
             
-            <!-- Image Project -->
-            <div class="project-item" data-type="image" data-src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=1000&fit=crop">
-                <div class="project-thumbnail">
-                    <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=1000&fit=crop" alt="Editorial Flow" loading="lazy">
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">Editorial Flow</h3>
-                    <span class="project-category">Print Design</span>
-                </div>
-            </div>
-            
-            <!-- Image Project -->
-            <div class="project-item" data-type="image" data-src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=1000&fit=crop">
-                <div class="project-thumbnail">
-                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=1000&fit=crop" alt="Chromatic Drift" loading="lazy">
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">Chromatic Drift</h3>
-                    <span class="project-category">Digital Art</span>
-                </div>
-            </div>
-            
-            <!-- Video Project (Vimeo) -->
+            <!-- ===== VIDEO PROJECT - VIMEO ===== -->
+            <!-- data-video-id: The number in Vimeo URL -->
+            <!-- Example: https://vimeo.com/824804225 → use "824804225" -->
             <div class="project-item" data-type="video" data-video-id="824804225" data-platform="vimeo">
                 <div class="project-thumbnail">
-                    <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800&h=1000&fit=crop" alt="Luxe in Motion" loading="lazy">
+                    <img src="images/video-cover2.jpg" alt="Luxe in Motion" loading="lazy">
                     <div class="play-icon"></div>
                 </div>
                 <div class="project-info">
@@ -109,10 +92,32 @@
                 </div>
             </div>
             
-            <!-- Image Project -->
-            <div class="project-item" data-type="image" data-src="https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?w=800&h=1000&fit=crop">
+            <!-- ===== IMAGE PROJECT - LOCAL FILE ===== -->
+            <div class="project-item" data-type="image" data-src="images/project2.jpg">
                 <div class="project-thumbnail">
-                    <img src="https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?w=800&h=1000&fit=crop" alt="Type Sculpture" loading="lazy">
+                    <img src="images/project2.jpg" alt="Editorial Flow" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Editorial Flow</h3>
+                    <span class="project-category">Print Design</span>
+                </div>
+            </div>
+            
+            <!-- ===== IMAGE PROJECT - LOCAL FILE ===== -->
+            <div class="project-item" data-type="image" data-src="images/project3.jpg">
+                <div class="project-thumbnail">
+                    <img src="images/project3.jpg" alt="Chromatic Drift" loading="lazy">
+                </div>
+                <div class="project-info">
+                    <h3 class="project-title">Chromatic Drift</h3>
+                    <span class="project-category">Digital Art</span>
+                </div>
+            </div>
+            
+            <!-- ===== IMAGE PROJECT - LOCAL FILE ===== -->
+            <div class="project-item" data-type="image" data-src="images/project4.jpg">
+                <div class="project-thumbnail">
+                    <img src="images/project4.jpg" alt="Type Sculpture" loading="lazy">
                 </div>
                 <div class="project-info">
                     <h3 class="project-title">Type Sculpture</h3>
@@ -120,10 +125,10 @@
                 </div>
             </div>
             
-            <!-- Image Project -->
-            <div class="project-item" data-type="image" data-src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=1000&fit=crop">
+            <!-- ===== IMAGE PROJECT - LOCAL FILE ===== -->
+            <div class="project-item" data-type="image" data-src="images/project5.jpg">
                 <div class="project-thumbnail">
-                    <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=1000&fit=crop" alt="Silent Voices" loading="lazy">
+                    <img src="images/project5.jpg" alt="Silent Voices" loading="lazy">
                 </div>
                 <div class="project-info">
                     <h3 class="project-title">Silent Voices</h3>
@@ -131,10 +136,10 @@
                 </div>
             </div>
             
-            <!-- Image Project -->
-            <div class="project-item" data-type="image" data-src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&h=1000&fit=crop">
+            <!-- ===== IMAGE PROJECT - LOCAL FILE ===== -->
+            <div class="project-item" data-type="image" data-src="images/project6.jpg">
                 <div class="project-thumbnail">
-                    <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&h=1000&fit=crop" alt="Urban Echoes" loading="lazy">
+                    <img src="images/project6.jpg" alt="Urban Echoes" loading="lazy">
                 </div>
                 <div class="project-info">
                     <h3 class="project-title">Urban Echoes</h3>

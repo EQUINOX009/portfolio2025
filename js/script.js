@@ -201,7 +201,17 @@ class Lightbox {
             
             let embedUrl;
             if (platform === 'youtube') {
-                embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&rel=0&modestbranding=1`;
+                // FIXED: Check for local file protocol and use a placeholder origin to satisfy YouTube's domain check.
+                let origin;
+                if (window.location.protocol === 'file:') {
+                    // Use a placeholder domain when running locally (from file:///)
+                    origin = 'https://your-portfolio-domain.com';
+                } else {
+                    // Use the actual domain when running on a server
+                    origin = window.location.origin;
+                }
+                
+                embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&controls=1&modestbranding=1&origin=${origin}`;
             } else if (platform === 'vimeo') {
                 embedUrl = `https://player.vimeo.com/video/${videoId}?autoplay=1&title=0&byline=0&portrait=0`;
             }
@@ -212,6 +222,7 @@ class Lightbox {
                     frameborder="0"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowfullscreen
+                    referrerpolicy="strict-origin-when-cross-origin"
                 ></iframe>
             `;
         }

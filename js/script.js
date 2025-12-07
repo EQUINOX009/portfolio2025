@@ -1,339 +1,240 @@
 /* ============================================
-   CREATIVE PORTFOLIO - SCRIPT.JS
-   Intersection Observer Animations & Interactions
+   BRUTALIST ELEGANCE - SCRIPT.JS
    ============================================ */
 
-/**
- * Portfolio Animation Controller
- * Handles scroll-based animations using Intersection Observer API
- */
-class PortfolioAnimations {
+// Floating Particles System
+class ParticleSystem {
     constructor() {
-        // Configuration
-        this.config = {
-            // Intersection Observer threshold (0 = start of element, 1 = full element)
-            threshold: 0.1,
-            // Root margin for triggering animations earlier
-            rootMargin: '0px 0px -50px 0px',
-            // Class to add when element is visible
-            visibleClass: 'is-visible'
-        };
-
-        // Initialize on DOM ready
+        this.container = document.getElementById('particles-bg');
+        this.particleCount = 50;
         this.init();
     }
-
-    /**
-     * Initialize all animation systems
-     */
+    
     init() {
-        this.initScrollAnimations();
-        this.initSmoothScroll();
-        this.initHeaderBehavior();
-        console.log('🎨 Portfolio animations initialized');
-    }
-
-    /**
-     * Initialize Intersection Observer for scroll animations
-     * Elements with .animate-on-scroll class will fade in and slide up
-     */
-    initScrollAnimations() {
-        // Check for Intersection Observer support
-        if (!('IntersectionObserver' in window)) {
-            // Fallback: show all elements immediately
-            document.querySelectorAll('.animate-on-scroll').forEach(el => {
-                el.classList.add(this.config.visibleClass);
-            });
-            return;
+        for (let i = 0; i < this.particleCount; i++) {
+            this.createParticle();
         }
+    }
+    
+    createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random starting position
+        const startX = Math.random() * 100;
+        particle.style.left = `${startX}%`;
+         const startY = Math.random() * 100;
+    particle.style.top = `${startY}vh`;
+        
+        // Random drift amount (horizontal movement)
+        const drift = (Math.random() - 0.2) * 100;
+        particle.style.setProperty('--drift', `${drift}px`);
+        
+        // Random duration (speed)
+        const duration = 15 + Math.random() * 25;
+        particle.style.animationDuration = `${duration}s`;
+        
+        // Random delay for staggered effect
+        const delay = Math.random() * 10;
+        particle.style.animationDelay = `${delay}s`;
+        
+        // Random size variation
+        const size = 2 + Math.random() * 4;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random opacity
+        const opacity = 0.2 + Math.random() * 0.4;
+        particle.style.opacity = opacity;
+        
+        this.container.appendChild(particle);
+    }
+}
 
-        // Create the observer
+// Custom Cursor with Lerp (Linear Interpolation)
+class CustomCursor {
+    constructor() {
+        this.cursor = document.getElementById('custom-cursor');
+        this.cursorPos = { x: 0, y: 0 };
+        this.mousePos = { x: 0, y: 0 };
+        this.speed = 0.15;
+        
+        this.init();
+    }
+    
+    init() {
+        document.addEventListener('mousemove', (e) => {
+            this.mousePos.x = e.clientX;
+            this.mousePos.y = e.clientY;
+        });
+        
+        this.animate();
+        this.setupHoverEffects();
+    }
+    
+    animate() {
+        this.cursorPos.x += (this.mousePos.x - this.cursorPos.x) * this.speed;
+        this.cursorPos.y += (this.mousePos.y - this.cursorPos.y) * this.speed;
+        
+        this.cursor.style.left = this.cursorPos.x + 'px';
+        this.cursor.style.top = this.cursorPos.y + 'px';
+        
+        requestAnimationFrame(() => this.animate());
+    }
+    
+    setupHoverEffects() {
+        const hoverElements = document.querySelectorAll('.project-item, a, button');
+        
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                this.cursor.classList.add('hover-active');
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                this.cursor.classList.remove('hover-active');
+            });
+        });
+    }
+}
+
+// Preloader
+class Preloader {
+    constructor() {
+        this.preloader = document.getElementById('preloader');
+        this.init();
+    }
+    
+    init() {
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                this.preloader.classList.add('hidden');
+            }, 1000);
+        });
+    }
+}
+
+// Scroll Reveal Animation
+class ScrollReveal {
+    constructor() {
+        this.items = document.querySelectorAll('.project-item');
+        this.init();
+    }
+    
+    init() {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Add visible class to trigger CSS animation
-                    entry.target.classList.add(this.config.visibleClass);
-                    
-                    // Optional: Unobserve after animation (performance optimization)
-                    // Uncomment if you don't want elements to re-animate when scrolling back
-                    // observer.unobserve(entry.target);
+                    entry.target.classList.add('visible');
                 }
             });
         }, {
-            threshold: this.config.threshold,
-            rootMargin: this.config.rootMargin
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         });
-
-        // Observe all elements with animate-on-scroll class
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-            observer.observe(el);
-        });
-    }
-
-    /**
-     * Initialize smooth scroll for anchor links
-     */
-    initSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', (e) => {
-                const targetId = anchor.getAttribute('href');
-                
-                // Skip if it's just "#"
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    e.preventDefault();
-                    
-                    // Calculate offset accounting for fixed header
-                    const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
-                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    }
-
-    /**
-     * Initialize header hide/show behavior on scroll
-     */
-    initHeaderBehavior() {
-        const header = document.querySelector('.header');
-        if (!header) return;
-
-        let lastScrollY = window.scrollY;
-        let ticking = false;
-
-        const updateHeader = () => {
-            const currentScrollY = window.scrollY;
-            
-            // Add/remove shadow based on scroll position
-            if (currentScrollY > 10) {
-                header.style.boxShadow = '0 1px 20px rgba(0, 0, 0, 0.05)';
-            } else {
-                header.style.boxShadow = 'none';
-            }
-
-            lastScrollY = currentScrollY;
-            ticking = false;
-        };
-
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                requestAnimationFrame(updateHeader);
-                ticking = true;
-            }
-        }, { passive: true });
+        
+        this.items.forEach(item => observer.observe(item));
     }
 }
 
-/**
- * Project Card Interactions
- * Handles hover effects and click behaviors for project cards
- */
-class ProjectCardInteractions {
+// Grid Hover Effect (Dim Others)
+class GridHoverEffect {
     constructor() {
+        this.items = document.querySelectorAll('.project-item');
         this.init();
     }
-
+    
     init() {
-        this.initCardHoverEffects();
-        this.initVideoCards();
-    }
-
-    /**
-     * Enhanced hover effects for project cards
-     * Adds parallax-like micro-interactions
-     */
-    initCardHoverEffects() {
-        const cards = document.querySelectorAll('.project-card:not(.project-card--video)');
-        
-        cards.forEach(card => {
-            const media = card.querySelector('.project-card__media');
-            const image = card.querySelector('.project-card__image');
-            
-            if (!media || !image) return;
-
-            // Mouse move parallax effect
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const moveX = (x - centerX) / centerX * 5;
-                const moveY = (y - centerY) / centerY * 5;
-                
-                image.style.transform = `scale(1.05) translate(${moveX}px, ${moveY}px)`;
-            });
-
-            // Reset on mouse leave
-            card.addEventListener('mouseleave', () => {
-                image.style.transform = 'scale(1) translate(0, 0)';
-            });
-        });
-    }
-
-    /**
-     * Initialize video card specific behaviors
-     * Prevents hover effects from interfering with video controls
-     */
-    initVideoCards() {
-        const videoCards = document.querySelectorAll('.project-card--video');
-        
-        videoCards.forEach(card => {
-            // Add click handler to focus video iframe
-            card.addEventListener('click', (e) => {
-                const iframe = card.querySelector('iframe');
-                if (iframe && e.target !== iframe) {
-                    iframe.focus();
-                }
-            });
-        });
-    }
-}
-
-/**
- * Utility Functions
- */
-const utils = {
-    /**
-     * Debounce function for performance optimization
-     * @param {Function} func - Function to debounce
-     * @param {number} wait - Wait time in milliseconds
-     */
-    debounce(func, wait = 100) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    },
-
-    /**
-     * Throttle function for scroll events
-     * @param {Function} func - Function to throttle
-     * @param {number} limit - Time limit in milliseconds
-     */
-    throttle(func, limit = 100) {
-        let inThrottle;
-        return function(...args) {
-            if (!inThrottle) {
-                func.apply(this, args);
-                inThrottle = true;
-                setTimeout(() => inThrottle = false, limit);
-            }
-        };
-    }
-};
-
-/**
- * Preloader (Optional Enhancement)
- * Adds a subtle loading transition when page first loads
- */
-class Preloader {
-    constructor() {
-        this.init();
-    }
-
-    init() {
-        // Wait for all content to load
-        window.addEventListener('load', () => {
-            document.body.classList.add('loaded');
-            
-            // Trigger initial animations after a short delay
-            setTimeout(() => {
-                document.querySelectorAll('.hero .animate-on-scroll').forEach(el => {
-                    el.classList.add('is-visible');
+        this.items.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                this.items.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.add('dimmed');
+                    }
                 });
-            }, 100);
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                this.items.forEach(otherItem => {
+                    otherItem.classList.remove('dimmed');
+                });
+            });
         });
     }
 }
 
-/**
- * Initialize everything when DOM is ready
- */
+// Lightbox Modal
+class Lightbox {
+    constructor() {
+        this.lightbox = document.getElementById('lightbox');
+        this.content = document.getElementById('lightbox-content');
+        this.closeBtn = document.getElementById('lightbox-close');
+        this.init();
+    }
+    
+    init() {
+        // Click handlers for project items
+        document.querySelectorAll('.project-item').forEach(item => {
+            item.addEventListener('click', () => {
+                this.open(item);
+            });
+        });
+        
+        // Close handlers
+        this.closeBtn.addEventListener('click', () => this.close());
+        this.lightbox.addEventListener('click', (e) => {
+            if (e.target === this.lightbox) this.close();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') this.close();
+        });
+    }
+    
+    open(item) {
+        const type = item.dataset.type;
+        
+        if (type === 'image') {
+            const src = item.dataset.src;
+            this.content.innerHTML = `<img src="${src}" alt="Project">`;
+        } else if (type === 'video') {
+            const videoId = item.dataset.videoId;
+            const platform = item.dataset.platform;
+            
+            let embedUrl;
+            if (platform === 'youtube') {
+                embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=1&rel=0&modestbranding=1`;
+            } else if (platform === 'vimeo') {
+                embedUrl = `https://player.vimeo.com/video/${videoId}?autoplay=1&title=0&byline=0&portrait=0`;
+            }
+            
+            this.content.innerHTML = `
+                <iframe 
+                    src="${embedUrl}" 
+                    frameborder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowfullscreen
+                ></iframe>
+            `;
+        }
+        
+        this.lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    
+    close() {
+        this.lightbox.classList.remove('active');
+        setTimeout(() => {
+            this.content.innerHTML = '';
+        }, 400);
+        document.body.style.overflow = '';
+    }
+}
+
+// Initialize everything
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize animation systems
-    new PortfolioAnimations();
-    new ProjectCardInteractions();
+    new ParticleSystem();
+    new CustomCursor();
     new Preloader();
-
-    // Log ready state
-    console.log('✨ Portfolio ready');
+    new ScrollReveal();
+    new GridHoverEffect();
+    new Lightbox();
 });
-
-/* ============================================
-   ADDING NEW PROJECT CARDS
-   ============================================
-   
-   To add a new IMAGE project, copy this template:
-   
-   <div class="project-card animate-on-scroll">
-       <div class="project-card__media">
-           <img 
-               src="YOUR_IMAGE_URL_HERE" 
-               alt="Description of your project"
-               class="project-card__image"
-               loading="lazy"
-           >
-       </div>
-       <div class="project-card__info">
-           <h3 class="project-card__title">Project Title</h3>
-           <span class="project-card__category">Category</span>
-       </div>
-   </div>
-
-   To add a new VIDEO project (YouTube), copy this template:
-   
-   <div class="project-card project-card--video animate-on-scroll">
-       <div class="project-card__media">
-           <iframe 
-               src="https://www.youtube.com/embed/YOUR_VIDEO_ID?controls=1&rel=0&modestbranding=1" 
-               title="Video title"
-               class="project-card__video"
-               frameborder="0"
-               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-               allowfullscreen
-               loading="lazy"
-           ></iframe>
-       </div>
-       <div class="project-card__info">
-           <h3 class="project-card__title">Video Title</h3>
-           <span class="project-card__category">Video Category</span>
-       </div>
-   </div>
-
-   To add a new VIDEO project (Vimeo), copy this template:
-   
-   <div class="project-card project-card--video animate-on-scroll">
-       <div class="project-card__media">
-           <iframe 
-               src="https://player.vimeo.com/video/YOUR_VIDEO_ID?h=0&title=0&byline=0&portrait=0" 
-               title="Video title"
-               class="project-card__video"
-               frameborder="0"
-               allow="autoplay; fullscreen; picture-in-picture"
-               allowfullscreen
-               loading="lazy"
-           ></iframe>
-       </div>
-       <div class="project-card__info">
-           <h3 class="project-card__title">Video Title</h3>
-           <span class="project-card__category">Video Category</span>
-       </div>
-   </div>
-
-   ============================================ */

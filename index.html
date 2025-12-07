@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of a Graphics Designer & Video Editor - Curating visual narratives in motion & stillness">
+    
+    <title>Creative Portfolio | Graphics & Motion</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- ============================================
+         HEADER / NAVIGATION
+    ============================================= -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="nav__logo">
+                <span class="nav__logo-text">Studio</span>
+            </a>
+            <ul class="nav__links">
+                <li><a href="#work" class="nav__link">Work</a></li>
+                <li><a href="#contact" class="nav__link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ============================================
+         HERO SECTION
+    ============================================= -->
+    <main>
+        <section class="hero">
+            <div class="hero__content">
+                <h1 class="hero__title animate-on-scroll">
+                    Curating visual narratives<br>
+                    <span class="hero__title--accent">in motion & stillness</span>
+                </h1>
+                <p class="hero__subtitle animate-on-scroll">
+                    Graphics Designer & Video Editor
+                </p>
+            </div>
+            <div class="hero__scroll-indicator animate-on-scroll">
+                <span>Scroll to explore</span>
+                <div class="hero__scroll-line"></div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             PORTFOLIO GRID SECTION
+        ============================================= -->
+        <section id="work" class="portfolio">
+            <div class="portfolio__header animate-on-scroll">
+                <h2 class="section-title">Selected Works</h2>
+                <p class="section-subtitle">A curated collection of design & motion projects</p>
+            </div>
+
+            <div class="portfolio__grid">
+                
+                <!-- ========== PROJECT CARD: Image ========== -->
+                <!-- To add a new project, simply copy this entire div block -->
+                <div class="project-card animate-on-scroll">
+                    <div class="project-card__media">
+                        <img 
+                            src="https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=800&h=1000&fit=crop" 
+                            alt="Abstract geometric design with bold colors"
+                            class="project-card__image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="project-card__info">
+                        <h3 class="project-card__title">Geometric Visions</h3>
+                        <span class="project-card__category">Brand Identity</span>
+                    </div>
+                </div>
+
+                <!-- ========== PROJECT CARD: Video (YouTube) ========== -->
+                <div class="project-card project-card--video animate-on-scroll">
+                    <div class="project-card__media">
+                        <iframe 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=1&rel=0&modestbranding=1" 
+                            title="Motion reel preview"
+                            class="project-card__video"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                            loading="lazy"
+                        ></iframe>
+                    </div>
+                    <div class="project-card__info">
+                        <h3 class="project-card__title">Motion Reel '24</h3>
+                        <span class="project-card__category">Video Production</span>
+                    </div>
+                </div>
+
+                <!-- ========== PROJECT CARD: Image ========== -->
+                <div class="project-card animate-on-scroll">
+                    <div class="project-card__media">
+                        <img 
+                            src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=1000&fit=crop" 
+                            alt="Editorial magazine layout design"
+                            class="project-card__image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="project-card__info">
+                        <h3 class="project-card__title">Editorial Flow</h3>
+                        <span class="project-card__category">Print Design</span>
+                    </div>
+                </div>
+
+                <!-- ========== PROJECT CARD: Image ========== -->
+                <div class="project-card animate-on-scroll">
+                    <div class="project-card__media">
+                        <img 
+                            src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&h=1000&fit=crop" 
+                            alt="Gradient abstract art composition"
+                            class="project-card__image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="project-card__info">
+                        <h3 class="project-card__title">Chromatic Drift</h3>
+                        <span class="project-card__category">Digital Art</span>
+                    </div>
+                </div>
+
+                <!-- ========== PROJECT CARD: Video (Vimeo) ========== -->
+                <div class="project-card project-card--video animate-on-scroll">
+                    <div class="project-card__media">
+                        <iframe 
+                            src="https://player.vimeo.com/video/824804225?h=0&title=0&byline=0&portrait=0" 
+                            title="Brand film for luxury client"
+                            class="project-card__video"
+                            frameborder="0"
+                            allow="autoplay; fullscreen; picture-in-picture"
+                            allowfullscreen
+                            loading="lazy"
+                        ></iframe>
+                    </div>
+                    <div class="project-card__info">
+                        <h3 class="project-card__title">Luxe in Motion</h3>
+                        <span class="project-card__category">Brand Film</span>
+                    </div>
+                </div>
+
+                <!-- ========== PROJECT CARD: Image ========== -->
+                <div class="project-card animate-on-scroll">
+                    <div class="project-card__media">
+                        <img 
+                            src="https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?w=800&h=1000&fit=crop" 
+                            alt="3D typography experimental design"
+                            class="project-card__image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="project-card__info">
+                        <h3 class="project-card__title">Type Sculpture</h3>
+                        <span class="project-card__category">3D Design</span>
+                    </div>
+                </div>
+
+                <!-- ========== PROJECT CARD: Image ========== -->
+                <div class="project-card animate-on-scroll">
+                    <div class="project-card__media">
+                        <img 
+                            src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800&h=1000&fit=crop" 
+                            alt="Minimalist poster design"
+                            class="project-card__image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="project-card__info">
+                        <h3 class="project-card__title">Silent Voices</h3>
+                        <span class="project-card__category">Poster Design</span>
+                    </div>
+                </div>
+
+                <!-- ========== PROJECT CARD: Image ========== -->
+                <div class="project-card animate-on-scroll">
+                    <div class="project-card__media">
+                        <img 
+                            src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&h=1000&fit=crop" 
+                            alt="Photography series urban landscapes"
+                            class="project-card__image"
+                            loading="lazy"
+                        >
+                    </div>
+                    <div class="project-card__info">
+                        <h3 class="project-card__title">Urban Echoes</h3>
+                        <span class="project-card__category">Photography</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- ============================================
+         FOOTER / CONTACT SECTION
+    ============================================= -->
+    <footer id="contact" class="footer">
+        <div class="footer__content">
+            <div class="footer__cta animate-on-scroll">
+                <h2 class="footer__title">Let's create<br><em>something beautiful</em></h2>
+                <a href="mailto:hello@studio.com" class="footer__email">hello@studio.com</a>
+            </div>
+            
+            <div class="footer__links animate-on-scroll">
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="footer__link">Instagram</a>
+                <a href="https://behance.net" target="_blank" rel="noopener noreferrer" class="footer__link">Behance</a>
+                <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer" class="footer__link">Dribbble</a>
+                <a href="https://vimeo.com" target="_blank" rel="noopener noreferrer" class="footer__link">Vimeo</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="footer__link">LinkedIn</a>
+            </div>
+            
+            <div class="footer__bottom">
+                <p class="footer__copyright">© 2024 Studio. All rights reserved.</p>
+                <p class="footer__tagline">Crafted with passion</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+</body>
+</html>

@@ -51,35 +51,20 @@ class ParticleSystem {
     }
 }
 
-// Custom Cursor with Lerp (Linear Interpolation)
+// Custom Cursor: NOW USES PURE CSS + GPU TRANSFORM FOR ZERO LAG
 class CustomCursor {
     constructor() {
         this.cursor = document.getElementById('custom-cursor');
-        this.cursorPos = { x: 0, y: 0 };
-        this.mousePos = { x: 0, y: 0 };
-        this.speed = 0.15;
-        
         this.init();
     }
     
     init() {
+        // Use transform: translate(X, Y) for fast, GPU-accelerated positioning
         document.addEventListener('mousemove', (e) => {
-            this.mousePos.x = e.clientX;
-            this.mousePos.y = e.clientY;
+            this.cursor.style.transform = `translate(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%))`;
         });
         
-        this.animate();
         this.setupHoverEffects();
-    }
-    
-    animate() {
-        this.cursorPos.x += (this.mousePos.x - this.cursorPos.x) * this.speed;
-        this.cursorPos.y += (this.mousePos.y - this.cursorPos.y) * this.speed;
-        
-        this.cursor.style.left = this.cursorPos.x + 'px';
-        this.cursor.style.top = this.cursorPos.y + 'px';
-        
-        requestAnimationFrame(() => this.animate());
     }
     
     setupHoverEffects() {
@@ -196,43 +181,62 @@ class Lightbox {
             const src = item.dataset.src;
             this.content.innerHTML = `<img src="${src}" alt="Project">`;
         } else if (type === 'video') {
-            const videoId = item.dataset.videoId;
-            const platform = item.dataset.platform;
-            
-            let embedUrl;
-            if (platform === 'youtube') {
-                // FIXED: Check for local file protocol and use a placeholder origin to satisfy YouTube's domain check.
-                let origin;
-                if (window.location.protocol === 'file:') {
-                    // Use a placeholder domain when running locally (from file:///)
-                    origin = 'https://your-portfolio-domain.com';
-                } else {
-                    // Use the actual domain when running on a server
-                    origin = window.location.origin;
+            const videoUrl = item.dataset.videoUrl; 
+            let embedUrl = '';
+
+            if (!videoUrl) return; 
+
+            if (videoUrl.includes('youtu.be') || videoUrl.includes('youtube.com')) {
+                let videoId = '';
+                try {
+                    if (videoUrl.includes('youtu.be')) {
+                        videoId = videoUrl.split('/').pop().split('?')[0];
+                    } else if (videoUrl.includes('youtube.com')) {
+                        const urlObj = new URL(videoUrl);
+                        const vParam = urlObj.searchParams.get('v');
+                        videoId = vParam;
+                    }
+                } catch (e) {
+                    console.error('YouTube URL parsing failed:', e);
                 }
-                
-                embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&controls=1&modestbranding=1&origin=${origin}`;
-            } else if (platform === 'vimeo') {
-                embedUrl = `https://player.vimeo.com/video/${videoId}?autoplay=1&title=0&byline=0&portrait=0`;
+
+                if (videoId) {
+                    embedUrl = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&controls=1&modestbranding=1`;
+                }
+            } else if (videoUrl.includes('vimeo.com')) {
+                let videoId = '';
+                try {
+                    const parts = videoUrl.split('/').filter(p => p); 
+                    videoId = parts.pop();
+                    if (videoId.match(/^\d+$/)) { 
+                        embedUrl = `https://player.vimeo.com/video/${videoId}?autoplay=1&title=0&byline=0&portrait=0`;
+                    }
+                } catch (e) {
+                    console.error('Vimeo URL parsing failed:', e);
+                }
             }
             
-            this.content.innerHTML = `
-                <iframe 
-                    src="${embedUrl}" 
-                    frameborder="0"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowfullscreen
-                    referrerpolicy="strict-origin-when-cross-origin"
-                ></iframe>
-            `;
+            if (embedUrl) {
+                this.content.innerHTML = `
+                    <iframe 
+                        src="${embedUrl}" 
+                        frameborder="0"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen
+                        referrerpolicy="strict-origin-when-cross-origin"
+                    ></iframe>
+                `;
+            }
         }
         
         this.lightbox.classList.add('active');
         document.body.style.overflow = 'hidden';
+        document.body.classList.add('lightbox-open'); // This class is key to the fix
     }
     
     close() {
         this.lightbox.classList.remove('active');
+        document.body.classList.remove('lightbox-open'); 
         setTimeout(() => {
             this.content.innerHTML = '';
         }, 400);

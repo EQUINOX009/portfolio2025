@@ -2,7 +2,7 @@
 
 An Awwwards-level, editorial-style portfolio website with a minimalist, high-fashion aesthetic.
 
-![Portfolio Preview](https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=1200&h=600&fit=crop)
+
 
 ---
 
